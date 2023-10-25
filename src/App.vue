@@ -14,7 +14,7 @@
 
 <script>
 // import Login from "./views/LoginView.vue";
-import TheToast from "./components/Toastr.vue";
+import TheToast from "./components/TheToast.vue";
 
 export default {
   data: () => ({
