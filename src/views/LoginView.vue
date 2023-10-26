@@ -54,6 +54,8 @@
 <script>
 import axios from "axios";
 import TheButton from "../components/TheButton.vue";
+import { eventBus } from "../utils/eventBus";
+import { showErrorMessage } from "../utils/function";
 export default {
   data: () => ({
     formData: {
@@ -68,39 +70,34 @@ export default {
       if (!this.formData.email) {
         //alert("Email can not be empty");
         // TODO : show error message no toast
-        this.$eventBus.emit("toast", {
-          type: "Error",
-          message: "Email can not be empty",
-        });
+
+        showErrorMessage("Error","Email can not be empty");
         return;
       }
 
       if (!this.formData.password) {
         //alert("password can not be empty");
         // TODO : show error message no toast
-        this.$eventBus.emit("toast", {
-          type: "Error",
-          message: "Password can not be empty",
-        });
+
+        showErrorMessage("Error","Password can not be empty");
+
         return;
       }
       if (this.formData.password.length < 6) {
         //alert("password must be at least 6 characters");
         // TODO : show error message no toast
-        this.$eventBus.emit("toast", {
-          type: "Error",
-          message: "password must be at least 6 characters",
-        });
+
+        showErrorMessage("Error","Password must be at least 6 characters");
+
+
         this.$refs.password.focus();
         return;
       }
       if (this.formData.password.length > 16) {
         //alert("password must be maximum 16 characters");
         // TODO : show error message no toast
-        this.$eventBus.emit("toast", {
-          type: "Error",
-          message: "password must be maximum 16 characters",
-        });
+
+        showErrorMessage("Error","Password must be maximum 16 characters");
 
         this.$refs.password.focus();
         return;
@@ -113,10 +110,8 @@ export default {
         .post("http://127.0.0.1:8000/api/v1/login", this.formData)
         .then((res) => {
           // after successfully login toaster
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: res.data.message,
-          });
+
+          showErrorMessage("Success",res.data.message);
 
           // set access_token data in local storage
           localStorage.setItem('accessToken', res.data.access_token);
@@ -125,10 +120,8 @@ export default {
         .catch((err) => {
           // if get any error using login from
           // console.log(err);
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: "Something went wrong! Try next time",
-          });
+          
+          showErrorMessage("Error", "Something went wrong! Try next time");
         })
         .finally(() => {
           this.loggingIn = false;

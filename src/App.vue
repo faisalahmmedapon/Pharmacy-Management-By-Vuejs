@@ -16,6 +16,8 @@
 // import Login from "./views/LoginView.vue";
 import TheToast from "./components/TheToast.vue";
 
+import {eventBus} from './utils/eventBus';
+
 export default {
   data: () => ({
     toasts: [
@@ -34,7 +36,7 @@ export default {
     TheToast,
   },
   mounted() {
-    this.$eventBus.on("toast", (data) => {
+    eventBus.on("toast", (data) => {
       this.toasts.push(data);
       // console.log(data);
       this.removeOneToast();
