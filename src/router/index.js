@@ -7,6 +7,10 @@ const ProfileView = () => import("../views/Auth/ProfileView.vue");
 const OrderHistory = () => import("../views/Auth/OrderHistory.vue");
 const Settings = () => import("../views/Auth/Settings.vue");
 
+//  pages
+const CategoryView = () => import("../views/CategoryView.vue");
+const ProductDetailsView = () => import("../views/ProductDetailsView.vue");
+
 const routes = [
   {
     path: "/",
@@ -39,6 +43,14 @@ const routes = [
         ],
       },
     ],
+  },
+  {
+    path: "/category",
+    component: CategoryView,
+  },
+  {
+    path: "/product-details",
+    component: ProductDetailsView,
   },
 ];
 
