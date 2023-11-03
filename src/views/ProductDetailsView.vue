@@ -469,7 +469,7 @@
             >
               <img
                 class="img-fluid"
-                src="./images/apple-logo.png"
+                src="/images/apple-logo.png"
                 alt=""
                 srcset=""
               />
@@ -501,7 +501,7 @@
             >
               <img
                 class="img-fluid"
-                src="./images/apple-logo.png"
+                src="/images/apple-logo.png"
                 alt=""
                 srcset=""
               />
@@ -533,7 +533,7 @@
             >
               <img
                 class="img-fluid"
-                src="./images/apple-logo.png"
+                src="/images/apple-logo.png"
                 alt=""
                 srcset=""
               />
@@ -565,7 +565,7 @@
             >
               <img
                 class="img-fluid"
-                src="./images/apple-logo.png"
+                src="/images/apple-logo.png"
                 alt=""
                 srcset=""
               />
