@@ -56,6 +56,7 @@ import axios from "axios";
 import TheButton from "../components/TheButton.vue";
 import { eventBus } from "../utils/eventBus";
 import { showErrorMessage } from "../utils/function";
+import { setPrivateHeaders } from "../service/axiosInstance";
 export default {
   data: () => ({
     formData: {
@@ -71,7 +72,7 @@ export default {
         //alert("Email can not be empty");
         // TODO : show error message no toast
 
-        showErrorMessage("Error","Email can not be empty");
+        showErrorMessage("Error", "Email can not be empty");
         return;
       }
 
@@ -79,7 +80,7 @@ export default {
         //alert("password can not be empty");
         // TODO : show error message no toast
 
-        showErrorMessage("Error","Password can not be empty");
+        showErrorMessage("Error", "Password can not be empty");
 
         return;
       }
@@ -87,8 +88,7 @@ export default {
         //alert("password must be at least 6 characters");
         // TODO : show error message no toast
 
-        showErrorMessage("Error","Password must be at least 6 characters");
-
+        showErrorMessage("Error", "Password must be at least 6 characters");
 
         this.$refs.password.focus();
         return;
@@ -97,7 +97,7 @@ export default {
         //alert("password must be maximum 16 characters");
         // TODO : show error message no toast
 
-        showErrorMessage("Error","Password must be maximum 16 characters");
+        showErrorMessage("Error", "Password must be maximum 16 characters");
 
         this.$refs.password.focus();
         return;
@@ -111,16 +111,17 @@ export default {
         .then((res) => {
           // after successfully login toaster
 
-          showErrorMessage("Success",res.data.message);
+          showErrorMessage("Success", res.data.message);
 
           // set access_token data in local storage
-          localStorage.setItem('accessToken', res.data.access_token);
+          localStorage.setItem("accessToken", res.data.access_token);
+          setPrivateHeaders();
           this.$router.push("/dashboard");
         })
         .catch((err) => {
           // if get any error using login from
           // console.log(err);
-          
+
           showErrorMessage("Error", "Something went wrong! Try next time");
         })
         .finally(() => {

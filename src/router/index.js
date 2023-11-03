@@ -1,48 +1,42 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LoginView from "../views/LoginView.vue";
-import DashboardView from "../views/DashboardView.vue";
-// import Drugs from '../views/Dashboard/Drugs.vue';
-// import Overview from '../views/Dashboard/Overview.vue';
-// import SellingHistory from '../views/Dashboard/SellingHistory.vue';
-// import Settings from '../views/Dashboard/Settings.vue';
+import IndexView from "../views/IndexView.vue";
 
-//import Vendors from '../views/Dashboard/Vendors.vue';
-
-// if you want to just import this page // when page content will be more and more and need to more time to reload then you should use just single page import by click;
-const Drugs = () => import("../views/Dashboard/Drugs.vue");
-const Overview = () => import("../views/Dashboard/Overview.vue");
-const SellingHistory = () => import("../views/Dashboard/SellingHistory.vue");
-const Settings = () => import("../views/Dashboard/Settings.vue");
-const Vendors = () => import("../views/Dashboard/Vendors.vue");
+const LoginView = () => import("../views/Auth/LoginView.vue");
+const RegisterView = () => import("../views/Auth/RegisterView.vue");
+const ProfileView = () => import("../views/Auth/ProfileView.vue");
+const OrderHistory = () => import("../views/Auth/OrderHistory.vue");
+const Settings = () => import("../views/Auth/Settings.vue");
 
 const routes = [
   {
     path: "/",
+    component: IndexView,
+  },
+  {
+    path: "/login",
     component: LoginView,
   },
   {
-    path: "/dashboard",
-    component: DashboardView,
+    path: "/register",
+    component: RegisterView,
+  },
+  {
+    path: "/profile",
+    component: ProfileView,
     children: [
       {
-        path: "drugs",
-        component: Drugs,
-      },
-      {
-        path: "overview",
-        component: Overview,
-      },
-      {
-        path: "selling-history",
-        component: SellingHistory,
+        path: "order-history",
+        component: OrderHistory,
       },
       {
         path: "settings",
         component: Settings,
-      },
-      {
-        path: "vendors",
-        component: Vendors,
+        children: [
+          {
+            path: "account",
+            component: Settings,
+          },
+        ],
       },
     ],
   },
