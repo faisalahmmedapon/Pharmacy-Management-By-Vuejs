@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex jc-between ai-center">
-    <h2>All vendors</h2>
+    <h2>All Vendors</h2>
     <TheButton @click="addModal = true">Add New</TheButton>
   </div>
 
@@ -106,92 +106,65 @@
 <script>
 import TheButton from "../../components/TheButton.vue";
 import TheModal from "../../components/TheModal.vue";
-import axios from "axios";
-
-import { eventBus } from "../../utils/eventBus";
 import { showErrorMessage } from "../../utils/function";
+import privateService from "../../service/privateService";
 export default {
   data: () => ({
     addModal: false,
-    editModal: false,
     deleteModal: false,
+    editModal: false,
 
     newVendor: {
       name: "",
       description: "",
     },
-
     selectedVendor: {},
-
-    adding: false,
-    editing: false,
     deleting: false,
-
-    gettingVendors: false,
+    editing: false,
+    adding: false,
     vendors: [],
+    gettingVendors: false,
   }),
 
   mounted() {
-    this.getAllVendors();
+    setTimeout(this.getAllVendors, 100);
   },
 
   methods: {
-    getAllVendors() {
-      this.gettingVendors = true;
-      let token = localStorage.getItem("accessToken");
-      axios
-        .get("http://127.0.0.1:8000/api/v1/vendors", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          this.vendors = res.data.vendors;
-
-          //console.log(res.data.vendors);
-        })
-        .catch((err) => {
-          // if get any error using login from
-          // console.log(err);
-
-          showErrorMessage("Error", "Something went wrong! Try next time");
-        })
-        .finally(() => {
-          this.gettingVendors = false;
-        });
-    },
     resetFrom() {
       this.newVendor = {
         name: "",
         description: "",
       };
     },
-    addNew() {
-      // console.log(this.newVendor);
 
-      this.adding = true;
-      let token = localStorage.getItem("accessToken");
-      //  console.log(token);
-      axios
-        .post("http://127.0.0.1:8000/api/v1/vendors", this.newVendor, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+    getAllVendors() {
+      this.gettingVendors = true;
+      privateService
+        .getVendors()
         .then((res) => {
-          // after successfully login toaster
+          // console.log(res);
+          this.vendors = res.data.vendors;
+        })
+        .catch((err) => {
+          showErrorMessage("Error", "Something went wrong! Try next time");
+        })
+        .finally(() => {
+          this.gettingVendors = false;
+        });
+    },
 
+    addNew() {
+      this.adding = true;
+      privateService
+        .addVendor(this.newVendor)
+        .then((res) => {
           showErrorMessage("Success", res.data.message);
-
-          // after successfully create this items from work
           this.addModal = false;
           this.resetFrom();
           this.getAllVendors();
         })
         .catch((err) => {
-          // if get any error using login from
-          // console.log(err);
-
           showErrorMessage("Error", "Something went wrong! Try next time");
         })
         .finally(() => {
@@ -200,32 +173,16 @@ export default {
     },
 
     deleteVendor() {
-      //console.log('deleteVendor');
-
       this.deleting = true;
       let token = localStorage.getItem("accessToken");
-      //  console.log(token);
-      axios
-        .delete(
-          "http://127.0.0.1:8000/api/v1/vendors/" + this.selectedVendor.id,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+      privateService
+        .deleteVendor(this.selectedVendor.id)
         .then((res) => {
-          // after successfully login toaster
-
           showErrorMessage("Success", res.data.message);
-
           this.deleteModal = false;
           this.getAllVendors();
         })
         .catch((err) => {
-          // if get any error using login from
-          // console.log(err);
-
           showErrorMessage("Error", "Something went wrong! Try next time");
         })
         .finally(() => {
@@ -233,30 +190,14 @@ export default {
         });
     },
     editVendor() {
-      //console.log('deleteVendor');
-
       this.editing = true;
-      let token = localStorage.getItem("accessToken");
-      //  console.log(token);
-      axios
-        .put(
-          "http://127.0.0.1:8000/api/v1/vendors/" + this.selectedVendor.id,
-          this.selectedVendor,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
+      privateService
+        .editVendor(this.selectedVendor)
         .then((res) => {
-          // after successfully login toaster
           showErrorMessage("Success", res.data.message);
-
           this.editModal = false;
         })
         .catch((err) => {
-          // if get any error using login from
-          // console.log(err);
           showErrorMessage("Error", "Something went wrong! Try next time");
         })
         .finally(() => {

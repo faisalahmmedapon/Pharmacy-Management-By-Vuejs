@@ -25,6 +25,7 @@
 <script>
 import TheSidebar from "../components/TheSidebar.vue";
 import TheHeader from "../components/TheHeader.vue";
+import { setPrivateHeaders } from "../service/axiosInstance";
 
 export default {
   data: () => ({}),
@@ -32,6 +33,9 @@ export default {
     TheSidebar,
     TheHeader,
   },
+  mounted(){
+    setPrivateHeaders();
+  }
 };
 </script>
 

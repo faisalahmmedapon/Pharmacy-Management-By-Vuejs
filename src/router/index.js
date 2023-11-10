@@ -39,6 +39,12 @@ const routes = [
       {
         path: "settings",
         component: Settings,
+        children: [
+          {
+            path: "account",
+            component: Settings,
+          },
+        ],
       },
       {
         path: "vendors",
