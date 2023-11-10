@@ -1,13 +1,13 @@
 <template lang="">
-    <div>
-        <h1>Overview</h1>
-    </div>
+  <div>
+    <h2> Register View </h2>
+  </div>
 </template>
 <script>
 export default {
-    
+  
 }
 </script>
 <style lang="">
-    
+  
 </style>

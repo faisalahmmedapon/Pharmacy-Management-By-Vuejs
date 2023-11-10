@@ -1,5 +1,5 @@
 {
-  "name": "pharmacy",
+  "name": "fstore",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "axios": "^1.5.1",
+    "bootstrap": "^5.3.2",
     "mitt": "^3.0.1",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
@@ -17,6 +19,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "sass": "^1.69.5",
     "vite": "^4.4.5"
   }
 }
